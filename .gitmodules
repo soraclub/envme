@@ -1,0 +1,9 @@
+[submodule "vim/vim8"]
+	path = vim/vim8
+	url = https://github.com/soraclub/vimrc8.git
+[submodule "vim/vim7"]
+	path = vim/vim7
+	url = https://github.com/soraclub/vim74.git
+[submodule "shell/oh-my-zsh"]
+	path = shell/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git

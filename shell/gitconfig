@@ -1,0 +1,11 @@
+ [color]
+     status = auto
+     diff = auto
+     branch = auto
+     interactive = auto
+ [alias]
+     lg = log  --format='%C(yellow)%h %<(13)%Cred%an %Cblue<%ai> %C(cyan)%d %Creset%s'
+     lgg = log  --format='%C(yellow)%h %<(13)%Cred%an %Cblue<%ai> %C(cyan)%d %Creset%s' --graph
+     lgn = log  --format='' --name-only
+ [push]
+     default = simple

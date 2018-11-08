@@ -1,0 +1,25 @@
+LANG="en_US.UTF-8"
+
+alias vin='vim +":NERDTreeToggle"'
+alias vi='vim'
+alias vo='vim -O'
+alias chmy="sudo chown $USER.$USER" 
+alias rm='rm -i'
+
+## 变动的php文件做语法检查
+function phpl()
+{ 
+    if [[ -d ./.svn ]]; then
+        svn st | grep -P '^[MA]' | awk '{print $NF}' | xargs -n1 php -l
+    elif [[ -d ./.git ]]; then
+        git status -s | awk '{print $2}' | xargs -n1 php -l
+    fi
+}
+export GOPATH="$HOME/godev/lib:$HOME/godev/work"
+#alias gopathhere="source $HOME/bin/gj_gopath_here.sh"
+export PATH=$HOME/.local/bin:$HOME/bin:$HOME/godev/lib/bin:$HOME/godev/work/bin:$PATH
+export SVN_EDITOR="vim"
+export EDITOR="vim"
+export VISUAL="vim"
+
+export PS4='[${FUNCNAME[0]}:$LINENO] > '

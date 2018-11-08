@@ -1,0 +1,117 @@
+# .bash_profile
+#LANG="en_US.UTF-8"
+# User specific environment and startup programs
+#export PATH=$HOME/.local/bin:$HOME/bin:$HOME/godev/lib/bin:$HOME/godev/work/bin:$PATH
+#export SVN_EDITOR="vim"
+#export EDITOR="vim"
+#export VISUAL="vim"
+export LS_COLORS='ow=30;42:no=00:fi=00:di=00;34:ln=00;36:pi=40;33:so=00;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=00;32:*.cmd=00;32:*.exe=00;32:*.com=00;32:*.btm=00;32:*.bat=00;32:*.sh=00;32:*.csh=00;32:*.tar=00;31:*.tgz=00;31:*.xz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.bz=00;31:*.tz=00;31:*.rpm=00;31:*.cpio=00;31:*.jpg=00;35:*.gif=00;35:*.bmp=00;35:*.xbm=00;35:*.xpm=00;35:*.png=00;35:*.tif=00;35:'
+
+function prompt_with_git() { #{{{#
+    local C_reset='\e[0m';
+    local C_cyan='\e[36m';
+    local C_red='\e[1;31m';
+    local C_green='\e[1;32m';
+    local C_yellow='\e[33m';
+    local C_blue='\e[34m';
+    local C_warn='\e[1;37;41m';
+
+    local h=""
+    if [[ -z $PS_host ]]; then
+       h=${HOSTNAME%%.*}
+    else
+       h=$PS_host
+    fi
+
+    local prompt="[\u@$h \W]"
+    #分支
+    local branch=$(git branch --no-color 2> /dev/null | awk '/\*/{print $2}')
+    if [[ ! -z $branch ]]; then
+        local C_notify=$C_cyan
+        if [[ ! -z $(git status 2>/dev/null | grep 'Your branch is ahead of') ]]; then
+            C_notify=$C_yellow
+        elif [[ ! -z $(git status 2>/dev/null | grep -P 'Your branch (is behind|and .+ have diverged)') ]]; then
+            C_notify=$C_blue
+        fi
+        #左括号
+        prompt="${prompt}\[${C_notify}\](${branch}"
+        #未提交
+        git status 2> /dev/null | grep -q "Changes to be committed" && prompt=$prompt"\[$C_green\]*"
+        #未暂存
+        git status 2> /dev/null | grep -qE "Changes not staged for commit|Changed but not updated" && prompt=$prompt"\[$C_red\]*"
+        #未跟踪
+        git status 2> /dev/null | grep -q "Untracked files" && prompt=$prompt"\[$C_red\]?"
+        #冲突
+        git status 2> /dev/null | grep -q "Unmerged paths" &&  prompt=$prompt"\[$C_warn\]!"
+        #右括号
+        prompt="$prompt\[$C_notify\])\[$C_reset\]"
+    fi
+    prompt="${prompt}\\$ "
+    export PS1=$prompt
+} #}}}#
+export PROMPT_COMMAND="prompt_with_git; $PROMPT_COMMAND"
+
+alias ll='ls -l'
+alias la='ls -al'
+alias lh='ls -lh'
+
+alias grep='grep --color=auto'
+alias cdd='cd ~/devspace'
+
+alias du1='sudo du -h --max-depth=1'
+alias du1s="sudo du --max-depth=1 | sort -gr | sed  's/\([0-9]\+\)/\1K/' | sed 's/\([0-9]\+\)\([0-9][0-9][0-9]\)K/\1.\2M/' | sed 's/\([0-9]\+\)\([0-9][0-9][0-9]\).[0-9]\+M/\1.\2G/' | sed 's/\([0-9]\+.[0-9]\)[0-9][0-9]/\1/'"
+
+
+## 记录路径
+function mk()
+{ #{{{#
+    if [[ $# -eq 0 ]]
+    then
+       echo "need param"  1>&2
+    fi
+    local f=~/.pathmark
+    local m=$1
+    local path=$PWD
+    if [[ -f $f ]]
+    then
+        sed "/^${m} /d" -i $f
+    fi
+    echo "$m $path" >> $f
+} #}}}#
+function cdm()
+{ #{{{#
+    local f=~/.pathmark
+    local m=$1
+    local path=$(cat $f | grep "^$m " | cut -d' ' -f2)
+    if [[ -d $path ]]
+    then
+        cd -L $path        
+    else
+        echo "no this mark" 1>&2
+    fi  
+}    #}}}#
+function lmk()
+{ #{{{#
+    local f=~/.pathmark
+    if [[ -f $f ]]
+    then
+        cat $f | sed 's/ /\t/'
+    fi
+} #}}}#
+##
+
+if [[ -f ~/.shrc ]]; then
+	. ~/.shrc
+fi
+
+#function cht()
+#{
+#    local arg=$1
+#    curl cht.sh/$arg
+#}
+
+# 本机独有的配置，优先级高，所以放在最后用来覆盖
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
