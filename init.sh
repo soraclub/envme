@@ -4,6 +4,9 @@ prj_home=$(readlink -n -f $0 | xargs dirname | xargs dirname)
 # shell
 for conf in bash_profile gitconfig on-my-zsh shrc tmux.conf zshrc
 do
+    if [[ -f $HOME/.${conf} ]]; then
+        mv $HOME/.${conf} $HOME/.${conf}.bak
+    fi
     ln -s ${prj_home}/shell/${conf} $HOME/.${conf}
 done
 
