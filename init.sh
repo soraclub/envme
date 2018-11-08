@@ -2,13 +2,12 @@
 prj_home=$(readlink -n -f $0 | xargs dirname)
 
 # shell
-for conf in bash_profile gitconfig on-my-zsh shrc tmux.conf zshrc
+for conf in bash_profile gitconfig oh-my-zsh shrc tmux.conf zshrc
 do
-    if [[ -f $HOME/.${conf} ]]; then
-        mv $HOME/.${conf} $HOME/.${conf}.bak
-    fi
     if [[ -L $HOME/.${conf} ]]; then
         unlink $HOME/.${conf} 
+    elif [[ -f $HOME/.${conf} ]]; then
+        mv $HOME/.${conf} $HOME/.${conf}.bak
     fi
     ln -s ${prj_home}/shell/${conf} $HOME/.${conf}
 done
@@ -27,8 +26,7 @@ fi
 for tool in zsh tmux vim 
 do
     if [[ -z $(which $tool 2>/dev/null) ]]; then
-        echo "you need zsh: sudo yum install -y $tool"
-        exit
+        echo "you need $tool: sudo yum install -y $tool"
     fi
 done
 
