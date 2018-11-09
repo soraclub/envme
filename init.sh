@@ -2,7 +2,7 @@
 prj_home=$(readlink -n -f $0 | xargs dirname)
 
 # shell
-for conf in bash_profile gitconfig oh-my-zsh shrc tmux.conf zshrc
+for conf in bash_profile oh-my-zsh shrc tmux.conf zshrc
 do
     if [[ -L $HOME/.${conf} ]]; then
         unlink $HOME/.${conf} 
@@ -11,6 +11,12 @@ do
     fi
     ln -s ${prj_home}/shell/${conf} $HOME/.${conf}
 done
+
+# gitconfig
+if [[ -f $HOME/.gitconfig ]]; then
+    mv $HOME/.gitconfig $HOME/.gitconfig.bak
+    cp $prj_home/shell/gitconfig $HOME/.gitconfig
+fi
 
 # zsh theme
 ln -s $prj_home/shell/me-ys.zsh-theme $prj_home/shell/oh-my-zsh/themes/
