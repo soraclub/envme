@@ -33,16 +33,17 @@ function prompt_with_git() { #{{{#
         elif [[ ! -z $(git status 2>/dev/null | grep -P 'Your branch (is behind|and .+ have diverged)') ]]; then
             C_notify=$C_blue
         fi
+        local statusStr=$(git status 2> /dev/null)
         #左括号
         prompt="${prompt}\[${C_notify}\](${branch}"
         #未提交
-        git status 2> /dev/null | grep -q "Changes to be committed" && prompt=$prompt"\[$C_green\]*"
+        echo $statusStr | grep -q "Changes to be committed" && prompt=$prompt"\[$C_green\]*"
         #未暂存
-        git status 2> /dev/null | grep -qE "Changes not staged for commit|Changed but not updated" && prompt=$prompt"\[$C_red\]*"
+        echo $statusStr | grep -qE "Changes not staged for commit|Changed but not updated" && prompt=$prompt"\[$C_red\]*"
         #未跟踪
-        git status 2> /dev/null | grep -q "Untracked files" && prompt=$prompt"\[$C_red\]?"
+        echo $statusStr | grep -q "Untracked files" && prompt=$prompt"\[$C_red\]?"
         #冲突
-        git status 2> /dev/null | grep -q "Unmerged paths" &&  prompt=$prompt"\[$C_warn\]!"
+        echo $statusStr | grep -q "Unmerged paths" &&  prompt=$prompt"\[$C_warn\]!"
         #右括号
         prompt="$prompt\[$C_notify\])\[$C_reset\]"
     fi
