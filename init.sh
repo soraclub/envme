@@ -32,6 +32,9 @@ done
 
 # vim
 if [[ ! -z $(which vim) ]]; then
+    if [[ -L $HOME/.vim ]]; then
+        unlink $HOME/.vim
+    fi
     VIM=$(which vim)
     vimver=$($VIM --version | head -1 | grep -Po 'IMproved (\d+)' | cut -d' ' -f 2)
     case $vimver in 

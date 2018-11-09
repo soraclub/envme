@@ -2,7 +2,6 @@
 
 ```bash
 cd $HOME
-git clone https://github.com/soraclub/envme --recursive
-mv envme .envme
+git clone https://github.com/soraclub/envme --recursive .envme
 .envme/init.sh
 ```
