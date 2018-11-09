@@ -78,6 +78,10 @@ if [[ -f ~/.shrc ]]; then
 	. ~/.shrc
 fi
 
+if [[ -f ~/.zshrc.local ]]; then
+	. ~/.zshrc.local
+fi
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment

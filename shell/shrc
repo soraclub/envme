@@ -1,5 +1,15 @@
-LANG="en_US.UTF-8"
+function pathmunge()
+{
+    if ! echo $PATH | /bin/grep -qE "(^|:)$1($|:)" ; then
+        if [ "$2" = "after" ] ; then
+            PATH=$PATH:$1
+        else
+            PATH=$1:$PATH
+        fi
+    fi
+}
 
+LANG="en_US.UTF-8"
 alias vin='vim +":NERDTreeToggle"'
 alias vi='vim'
 alias vo='vim -O'
