@@ -52,7 +52,7 @@ PROMPT="
 %{$fg[white]%}@\
 %{$fg[green]%}%M\
 %{$fg[white]%}:\
-%{$terminfo[bold]$fg[yellow]%}%~%{$reset_color%}\
+%{$fg[yellow]%}%~%{$reset_color%}\
 ${hg_info}\
 ${git_info}\
  \
