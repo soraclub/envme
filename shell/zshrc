@@ -66,6 +66,8 @@ ZSH_THEME="me-ys"
 plugins=(
 #  git
  colored-man-pages
+ z
+ colorize
 )
 
 source $ZSH/oh-my-zsh.sh
