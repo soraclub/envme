@@ -27,7 +27,7 @@ function phpl()
         git status -s | awk '{print $2}' | xargs -n1 php -l
     fi
 }
-export GOPATH="$HOME/godev/lib:$HOME/godev/work"
+export GOPATH="$HOME/godev"
 #alias gopathhere="source $HOME/bin/gj_gopath_here.sh"
 export PATH=$HOME/.local/bin:$HOME/bin:$HOME/godev/lib/bin:$HOME/godev/work/bin:$PATH
 export SVN_EDITOR="vim"
