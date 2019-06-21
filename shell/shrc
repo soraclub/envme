@@ -29,7 +29,7 @@ function phpl()
 }
 export GOPATH="$HOME/godev"
 #alias gopathhere="source $HOME/bin/gj_gopath_here.sh"
-export PATH=$HOME/.local/bin:$HOME/bin:$HOME/godev/lib/bin:$HOME/godev/work/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/bin:$HOME/godev/bin:$PATH
 export SVN_EDITOR="vim"
 export EDITOR="vim"
 export VISUAL="vim"
