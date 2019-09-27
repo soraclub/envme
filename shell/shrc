@@ -28,6 +28,7 @@ function phpl()
     fi
 }
 export GOPATH="$HOME/godev"
+export GOPROXY="https://goproxy.io"
 #alias gopathhere="source $HOME/bin/gj_gopath_here.sh"
 export PATH=$HOME/.local/bin:$HOME/bin:$HOME/godev/bin:$PATH
 export SVN_EDITOR="vim"
