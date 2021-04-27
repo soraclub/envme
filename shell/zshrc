@@ -64,7 +64,7 @@ ZSH_THEME="me-ys"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-#  git
+ git
  colored-man-pages
  z
  colorize
