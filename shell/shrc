@@ -37,4 +37,6 @@ export VISUAL="vim"
 
 export PS4='[${FUNCNAME[0]}:$LINENO] > '
 
+export TMOUT=10000
+
 pathmunge $HOME/.config/composer/vendor/bin
