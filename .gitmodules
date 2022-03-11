@@ -3,5 +3,6 @@
 	url = https://github.com/soraclub/vimrc8.git
 [submodule "shell/oh-my-zsh"]
 	path = shell/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
+	#url = https://github.com/robbyrussell/oh-my-zsh.git
+	url = https://github.com/ohmyzsh/ohmyzsh.git
     ignore = dirty
